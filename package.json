@@ -1,0 +1,23 @@
+{
+  "name": "celebrityvoicesai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HomenShum/CelebrityVoiceAI-Heroku.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HomenShum/CelebrityVoiceAI-Heroku/issues"
+  },
+  "homepage": "https://github.com/HomenShum/CelebrityVoiceAI-Heroku#readme",
+  "dependencies": {
+    "firebase": "^9.16.0"
+  }
+}
