@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block title %}Answer Complex Questions with Vector Search and GPT-3{% endblock %} {% block content%}
+<h1 align="center">Answer Complex Questions with Vector Search and GPT-3</h1>
+<ul class="list-group list-group-flush" id="answers">
+    {% for answer in final %}
+    <li class="list-group-item">
+        {{ answer }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
