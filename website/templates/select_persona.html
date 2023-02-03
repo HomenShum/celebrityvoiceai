@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Persona Selection{% endblock %}
+
+{% block content%}
+  <h1 align="center">Select the persona of your choice for your next conversation</h1>
+  <div class="container">
+    <ul class="list-group">
+      {% for persona in personas %}
+        <li class="list-group-item">
+          <input type="radio" id="{{ persona.name }}" name="selected_persona" value="{{ persona.name }}">
+          <label for="{{ persona.name }}">{{ persona.name }}</label>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <form action="/home" method="GET">
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

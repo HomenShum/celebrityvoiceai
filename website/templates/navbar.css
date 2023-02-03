@@ -1,0 +1,13 @@
+#navbarNav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s;
+}
+
+.showNav {
+    height: auto;
+}
