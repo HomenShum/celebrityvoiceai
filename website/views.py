@@ -75,7 +75,7 @@ def open_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as infile:
         return infile.read()
 
-openai.api_key = open_file('website\openaiapikey.txt')
+openai.api_key = open_file('website/openaiapikey.txt')
 
 def gpt3_embedding(content, engine='text-embedding-ada-002'):
     content = content.encode(encoding='ASCII',errors='ignore').decode() #encode to ASCII then decode to prevent chatgpt errors
@@ -126,7 +126,7 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.6, top_p=1.0, toke
             text = response['choices'][0]['text'].strip()  # get the 0th choice of the text, strip whitespace
             text = re.sub('\s+', ' ', text) # replace multiple spaces with single space 
             filename = '%s_gpt3.txt' % time() #create a file with the time stamp
-            with open('website\\gpt3_logs/%s' % filename, 'w') as outfile: #create a file with the time stamp in the gpt3_logs folder
+            with open('website/gpt3_logs/%s' % filename, 'w') as outfile: #create a file with the time stamp in the gpt3_logs folder
                 outfile.write('PROMPT:\n\n' + prompt + '\n\n==========\n\nRESPONSE:\n\n' + text) #write the prompt and response to a file
             return text 
         except Exception as oops:
@@ -137,7 +137,7 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.6, top_p=1.0, toke
             sleep(1)
 
 def respond_user(note):
-    with open('website\\index.json', 'r') as infile:
+    with open('website/index.json', 'r') as infile:
         data = json.load(infile)    
     query = note
     results = search_index(query, data)
@@ -147,7 +147,7 @@ def respond_user(note):
     answers = list()
     #answer the same question for all returned chunks
     for result in results:
-        prompt = open_file('website\\prompt_answer.txt').replace('<<PASSAGE>>', result['content']).replace('<<QUERY>>', query)
+        prompt = open_file('website/prompt_answer.txt').replace('<<PASSAGE>>', result['content']).replace('<<QUERY>>', query)
         answer = gpt3_completion(prompt)
         print('\n\n', answer)
         answers.append(answer)
@@ -157,7 +157,7 @@ def respond_user(note):
     chunks = textwrap.wrap(all_answers, 10000)
     final = list()
     for chunk in chunks:
-        prompt = open_file('website\\prompt_summary.txt').replace('<<SUMMARY>>', chunk).replace('<<QUERY>>', query)
+        prompt = open_file('website/prompt_summary.txt').replace('<<SUMMARY>>', chunk).replace('<<QUERY>>', query)
         summary = gpt3_completion(prompt)
         final.append(summary)
     #change list into a string
