@@ -1,6 +1,10 @@
 from . import db # Importing the database
 from flask_login import UserMixin # helps us to manage users login
 from sqlalchemy.sql import func # helps us to manage the date
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True) # primary key to help us identify each note
@@ -22,4 +26,14 @@ class User(db.Model, UserMixin):
     # password2 = db.Column(db.String(150))
     notes = db.relationship('Note') # relationship between the user and the note
 
-    
+class Persona(db.Model,Base):
+    __tablename__ = 'personas'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    description = Column(String)
+    avatar = Column(String)
+
+    def __init__(self, name, description, avatar):
+        self.name = name
+        self.description = description
+        self.avatar = avatar

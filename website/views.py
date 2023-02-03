@@ -1,7 +1,7 @@
 from datetime import date, datetime, timedelta
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from .models import Note
+from .models import Note, User, Persona
 from . import db
 import json
 from flask import jsonify
@@ -61,6 +61,23 @@ def delete_all_notes():
         db.session.delete(note) #delete the note
     db.session.commit() #commit changes to database
     return jsonify({}) #return an empty json object
+
+@views.route('/select', methods=['GET', 'POST'])
+@login_required
+def select_persona():
+    personas = Persona.query.all()
+    user = User.query.filter_by(email=current_user.email).first()
+    if request.method == 'POST':
+        email = request.form.get('email')
+        persona_id = request.form.get('persona')
+        user = User.query.filter_by(email=current_user.email).first()
+        selected_persona = Persona.query.filter_by(id=persona_id).first()
+        user.persona = selected_persona
+        db.session.commit()
+        return redirect(url_for('views.home'))
+
+    return render_template("select_persona.html", personas=personas, user=user)
+
 
 # implement answer_questions.py 
 import openai
