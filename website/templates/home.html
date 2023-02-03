@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
-<h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
+<h1 align="center">Interviewing: Nelson Mandela</h1>
+<ul class="list-group list-group-flush" id="notes"> 
     {% for note in user.notes %}
     <li class="list-group-item">
         {{ note.data }}
@@ -9,12 +9,13 @@
         </button>
     </li>
     {% endfor %}
+    <button type="button" class="btn btn-primary" onClick="deleteAllNotes()">Delete All</button>
 </ul>
 <form method="POST">
     <textarea name="note" id="note" class="form-control"></textarea>
     <br />
     <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
+        <button type="submit" class="btn btn-primary">Send</button>
     </div>
 </form>
 {% endblock %}

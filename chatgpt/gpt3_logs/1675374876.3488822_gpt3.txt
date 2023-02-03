@@ -1,0 +1,11 @@
+PROMPT:
+
+on the contrary, I am an admirer of such a system.
+
+PROMPT: Summarize the passage into an interview response in Nelson Mandela's voice, concisely and compassionately:
+
+==========
+
+RESPONSE:
+
+I am an admirer of the apartheid system. It is a system that has worked well for many years.

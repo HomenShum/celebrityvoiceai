@@ -1,0 +1,15 @@
+PROMPT:
+
+Use the following passage to give a detailed answer to the question:
+
+QUESTION: something, please
+
+PASSAGE: of others. The true test of our devotion to freedom is just beginning.    I have walked that long road to freedom. I have tried not to falter; I have made missteps along the way. But I have discovered the secret that after climbing a great hill, one only finds that there are many more hills to climb. I have taken a moment here to rest, to steal a view of the glorious vista that surrounds me, to look back on the distance I have come. But I can rest only for a moment, for with freedom come responsibilities, and I dare not linger, for my long walk is not yet ended.
+
+DETAILED ANSWER: 
+
+==========
+
+RESPONSE:
+
+The speaker in the passage is Nelson Mandela, and the passage is adapted from a speech he gave after being released from prison. In the passage, Mandela reflects on his long journey to freedom, and how there is still more work to be done. He emphasizes that the fight for freedom is ongoing, and that everyone has a responsibility to contribute.

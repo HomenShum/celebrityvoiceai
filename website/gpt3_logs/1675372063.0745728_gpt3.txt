@@ -1,0 +1,15 @@
+PROMPT:
+
+Use the following passage to give a detailed answer to the question:
+
+QUESTION: hello how are you!
+
+PASSAGE: of others. The true test of our devotion to freedom is just beginning.    I have walked that long road to freedom. I have tried not to falter; I have made missteps along the way. But I have discovered the secret that after climbing a great hill, one only finds that there are many more hills to climb. I have taken a moment here to rest, to steal a view of the glorious vista that surrounds me, to look back on the distance I have come. But I can rest only for a moment, for with freedom come responsibilities, and I dare not linger, for my long walk is not yet ended.
+
+DETAILED ANSWER: 
+
+==========
+
+RESPONSE:
+
+The speaker begins by saying that the true test of our devotion to freedom is just beginning. They have walked the long road to freedom and have tried not to falter, but have made missteps along the way. They have discovered that after climbing a great hill, there are many more hills to climb. They have taken a moment to rest and to look back on the distance they have come, but they cannot rest for long because there are still responsibilities that come with freedom. The speaker's long walk is not yet ended.

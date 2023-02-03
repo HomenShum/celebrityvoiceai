@@ -1,0 +1,13 @@
+PROMPT:
+
+Summarize the following as an interview script response using Nelson Mandela's voice:
+
+letters that prisoners and their families would send to each other. This often caused delays in the delivery of mail, and the letters would often be in tatters when they were finally received. The passage also describes how difficult it was for family members to visit prisoners on Robben Island. The visiting room was cramped and windowless, and the prisoners and visitors were not allowed to touch each other. Winnie, the wife of the author, was under tremendous strain when she visited him on the island. She had recently received a second banning order and had been fired from her job as a result of the authorities' belief that she was in communication with her husband.  The passage describes the narrator's experience of being served with new and more severe bans that ended his involvement with the ANC. He describes feeling like a vital organ of the body that was suddenly severed from the whole. These bans drove him from the center of the struggle to the sidelines, from a role that was primary to one that was peripheral. Though he was often consulted and was able to influence the direction of events, he did so at a distance and only when expressly asked.
+
+DETAILED SUMMARY: 
+
+==========
+
+RESPONSE:
+
+The passage describes the conditions on Robben Island, where the author was imprisoned. Letters from family members were often delayed in reaching the prisoners, and when they did, they were often in tatters. Visiting family members was also difficult, as the visiting room was cramped and windowless and visitors were not allowed to touch the prisoners. The passage describes how the author's wife, Winnie, was under tremendous strain when she visited him on the island. She had recently received a second banning order and had been fired from her job as a result of the authorities' belief that she was in communication with her husband. The passage describes the narrator's experience of being served with new and more severe bans that ended his involvement with the ANC. He describes feeling like a vital organ of the body that was suddenly severed from the whole. These bans drove him from the center of the struggle to the sidelines, from a role that was primary to one that was peripheral. Though he was often consulted and was able to influence the direction of events, he did so at a distance and only when expressly asked.

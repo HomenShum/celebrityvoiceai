@@ -8,6 +8,8 @@ import numpy as np
 import textwrap
 import re
 from time import time, sleep
+from numpy.linalg import norm 
+
 
 def open_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as infile:
@@ -15,14 +17,14 @@ def open_file(filepath):
 
 openai.api_key = open_file('C:\\Users\\hshum\\OneDrive\\Desktop\\Python\\CelebrityVoicesAI\\chatgpt\\openaiapikey.txt')
 
-def gpt3_embedding(content, engine='text-similarity-ada-001'):
+def gpt3_embedding(content, engine='text-embedding-ada-002'):
     content = content.encode(encoding='ASCII',errors='ignore').decode() #encode to ASCII then decode to prevent chatgpt errors
     response = openai.Embedding.create(input=content,engine=engine) # generate embedding data for documents/questions/user input
     vector = response['data'][0]['embedding']  # creates a vector containing the embedding data 
     return vector
 
 def similarity(v1, v2):  # return dot product of two vectors
-    return np.dot(v1, v2) #dot product is a measure of similarity between two vectors
+    return np.dot(v1, v2)/(norm(v1)*norm(v2)) #dot product is a measure of similarity between two vectors
 
 def search_index(text, data, count=5):
     vector = gpt3_embedding(text) #get vector data for the question
@@ -46,7 +48,7 @@ def search_index(text, data, count=5):
     #for all 20 top chunk results, ask the same question, accumulate the answers, summarize into a single best answer
     #then use finetuned model to answer with celebrity persona's voice
 
-def gpt3_completion(prompt, engine='text-davinci-002', temp=0.6, top_p=1.0, tokens=1600, freq_pen=0.25, pres_pen=0.0, stop=['<<END>>']):
+def gpt3_completion(prompt, engine='text-davinci-003', temp=0.6, top_p=1.0, tokens=1600, freq_pen=0.25, pres_pen=0.0, stop=['<<END>>']):
     max_retry = 5
     retry = 0
     prompt = prompt.encode(encoding='ASCII',errors='ignore').decode()

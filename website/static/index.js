@@ -6,3 +6,12 @@ function deleteNote(noteId) {
         window.location.href = "/";
     });
 }
+
+
+function deleteAllNotes() {
+    fetch('/delete-all-notes', {
+        method: 'POST'
+    }).then(() => {
+        window.location.href = "/";
+    });
+}

@@ -1,0 +1,15 @@
+PROMPT:
+
+Use the following passage to give a detailed answer to the question:
+
+QUESTION: what do you think about the issue regarding injustice?
+
+PASSAGE: of others. The true test of our devotion to freedom is just beginning.    I have walked that long road to freedom. I have tried not to falter; I have made missteps along the way. But I have discovered the secret that after climbing a great hill, one only finds that there are many more hills to climb. I have taken a moment here to rest, to steal a view of the glorious vista that surrounds me, to look back on the distance I have come. But I can rest only for a moment, for with freedom come responsibilities, and I dare not linger, for my long walk is not yet ended.
+
+DETAILED ANSWER: 
+
+==========
+
+RESPONSE:
+
+The passage discusses the issue of injustice, and the speaker's opinion is that the true test of our devotion to freedom is just beginning. The speaker has experienced injustice firsthand, and has made it their mission to fight for freedom. They believe that everyone has a responsibility to fight for justice, and that this is an ongoing battle that will never be fully won. The speaker is hopeful but realistic, and their message is that we must all continue to fight for justice, even when it seems like an uphill battle.

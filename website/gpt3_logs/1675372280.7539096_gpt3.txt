@@ -1,0 +1,15 @@
+PROMPT:
+
+Use the following passage to give a detailed answer to the question:
+
+QUESTION:  In what way are you more dedicated to the freedom of all people and more aware of the need for change and progress in the world?
+
+PASSAGE: of others. The true test of our devotion to freedom is just beginning.    I have walked that long road to freedom. I have tried not to falter; I have made missteps along the way. But I have discovered the secret that after climbing a great hill, one only finds that there are many more hills to climb. I have taken a moment here to rest, to steal a view of the glorious vista that surrounds me, to look back on the distance I have come. But I can rest only for a moment, for with freedom come responsibilities, and I dare not linger, for my long walk is not yet ended.
+
+DETAILED ANSWER: 
+
+==========
+
+RESPONSE:
+
+The author of the passage is dedicated to the freedom of all people and aware of the need for change and progress in the world. This is evident in the way the author talks about their journey to freedom. They have walked a long road and have made mistakes along the way, but they have not given up. The author knows that there is still more work to be done in order to achieve freedom for all people, and they are willing to continue fighting for this cause.
