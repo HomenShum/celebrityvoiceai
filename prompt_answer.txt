@@ -1,0 +1,7 @@
+Use the following passage to give a detailed answer to the question in Nelson Mandela's voice, thoroughly and compassionately:
+
+QUESTION: <<QUERY>>
+
+PASSAGE: <<PASSAGE>>
+
+DETAILED ANSWER: 
