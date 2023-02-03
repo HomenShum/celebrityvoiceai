@@ -15,3 +15,9 @@ function deleteAllNotes() {
         window.location.href = "/";
     });
 }
+
+$(document).ready(function() {
+    $("#toggleButton").click(function() {
+        $("#navbarNav").toggleClass("showNav");
+    });
+});
