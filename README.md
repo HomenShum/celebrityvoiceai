@@ -78,3 +78,188 @@ The 27 years I spent in prison were a time of great reflection for me. I had a l
 
 In my life, I have had the unique opportunity to both fight for freedom and seek justice for the oppressed. Before I was sent to prison, I was active in politics and did not take the time to think about others and how I could help them. When I had the time to reflect in prison, I realized that there were people who had been kind to me and whom I had neglected. This realization allowed me to change my life and make it up to those people or their
 descendants. Now, my life mission is to bring happiness to those with no resources, the poor, the illiterate, and those suffering from terminal illnesses. To do this, I have dedicated my time to building schools, clinics, community halls, and offering scholarships for children. While this is important work, I also recognize that I have a duty to my own family. Ultimately, my goal is to free people from poverty and illiteracy so that they can lead better lives.
+
+# V2 Update - Adding persona selection
+
+1. base.html
+
+```jsx
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" id="toggleButton">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse" id="navbarNav">
+                <div class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" id="home" href="/">Home</a>
+                        <a class="nav-item nav-link" id="select" href="/select">Persona Selection</a>
+                        <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                    {% else %}
+                        <a class="nav-item nav-link" id="login" href="/login">Login</a>
+                        <a class="nav-item nav-link" id="signup" href="/sign-up">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+```
+
+1. **init**.py
+
+```jsx
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from os import path
+from flask_login import LoginManager
+
+db = SQLAlchemy()
+DB_NAME = "database.db"
+
+def create_app():
+    app = Flask(__name__, template_folder = "templates")
+    app.config['SECRET_KEY'] = 'celebrityvoiceaisecretkey711999'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    db.init_app(app)
+
+    from .views import views
+    from .auth import auth
+
+    app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(auth, url_prefix='/')
+
+    from .models import User, Note, Persona
+
+    create_database(app)
+    
+    login_manager = LoginManager() #create an instance of the login manager
+    login_manager.login_view = 'auth.login' #if user is not logged in, redirect to login page
+    login_manager.init_app(app) #initialize the login manager
+
+    @login_manager.user_loader #this function will be called whenever a user is required
+    def load_user(id):
+        return User.query.get(int(id)) #get the user id
+
+    @app.before_first_request
+    def create_personas():
+        personas = [
+            {
+                "name": "Professional",
+                "description": "A professional persona with a focus on business and finance.",
+                "avatar": "/static/img/professional.png"
+            },
+            {
+                "name": "Tech Savvy",
+                "description": "A tech-savvy persona with a passion for all things technology.",
+                "avatar": "/static/img/tech_savvy.png"
+            },
+            {
+                "name": "Fashionista",
+                "description": "A fashion-conscious persona with an eye for style and design.",
+                "avatar": "/static/img/fashionista.png"
+            },
+            {
+                "name": "Foodie",
+                "description": "A food-loving persona with a passion for cooking and trying new restaurants.",
+                "avatar": "/static/img/foodie.png"
+            },
+            {
+                "name": "Adventurer",
+                "description": "An adventurous persona with a love for travel and outdoor activities.",
+                "avatar": "/static/img/adventurer.png"
+            }
+        ]
+
+        for persona in personas:
+            if not Persona.query.filter_by(name=persona['name']).first():
+                p = Persona(name=persona['name'], description=persona['description'], avatar=persona['avatar'])
+                db.session.add(p)
+        db.session.commit()
+
+    return app<body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" id="toggleButton">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse" id="navbarNav">
+                <div class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" id="home" href="/">Home</a>
+                        <a class="nav-item nav-link" id="select" href="/select">Persona Selection</a>
+                        <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                    {% else %}
+                        <a class="nav-item nav-link" id="login" href="/login">Login</a>
+                        <a class="nav-item nav-link" id="signup" href="/sign-up">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+```
+
+1. models.py
+
+```jsx
+from . import db # Importing the database
+from flask_login import UserMixin # helps us to manage users login
+from sqlalchemy.sql import func # helps us to manage the date
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class Persona(db.Model,Base):
+    __tablename__ = 'personas'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    description = Column(String)
+    avatar = Column(String)
+
+    def __init__(self, name, description, avatar):
+        self.name = name
+        self.description = description
+        self.avatar = avatar
+```
+
+1. views.py
+
+```jsx
+@views.route('/select', methods=['GET', 'POST'])
+@login_required
+def select_persona():
+    personas = Persona.query.all()
+    user = User.query.filter_by(email=current_user.email).first()
+    if request.method == 'POST':
+        email = request.form.get('email')
+        persona_id = request.form.get('persona')
+        user = User.query.filter_by(email=current_user.email).first()
+        selected_persona = Persona.query.filter_by(id=persona_id).first()
+        user.persona = selected_persona
+        db.session.commit()
+        return redirect(url_for('views.home'))
+
+    return render_template("select_persona.html", personas=personas, user=user)
+```
+
+1. select_persona.html
+
+```jsx
+{% extends "base.html" %}
+
+{% block title %}Persona Selection{% endblock %}
+
+{% block content%}
+  <h1 align="center">Select the persona of your choice for your next conversation</h1>
+  <div class="container">
+    <ul class="list-group">
+      {% for persona in personas %}
+        <li class="list-group-item">
+          <input type="radio" id="{{ persona.name }}" name="selected_persona" value="{{ persona.name }}">
+          <label for="{{ persona.name }}">{{ persona.name }}</label>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <form action="/home" method="GET">
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
+```
