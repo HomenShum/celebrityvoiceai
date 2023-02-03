@@ -56,10 +56,10 @@ def sign_up():
             new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user) # add user to database
             db.session.commit() # commit changes to database
-            login_user(user, remember=True)
+            if new_user is not None:
+                login_user(new_user, remember=True)
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
-            
     return render_template('sign_up.html', user=current_user)
 
  
