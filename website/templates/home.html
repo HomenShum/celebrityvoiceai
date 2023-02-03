@@ -1,6 +1,12 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
 <h1 align="center">Interviewing: Nelson Mandela</h1>
+<br />
 <ul class="list-group list-group-flush" id="notes"> 
+    <li class="list-group-item">
+        Q: The last time we talked, you said that if you hadn't been in prison, you wouldn't have achieved the most difficult task in life—changing yourself. How did 27 years of reflection make you a different man?
+        <hr />
+        A: Before I went to jail, I was active in politics as a member of South Africa's leading organization—and I was generally busy from 7 A.M. until midnight. I never had time to sit and think. As I worked, physical and mental fatigue set in and I was unable to operate to the maximum of my intellectual ability. But in a single cell in prison, I had time to think. I had a clear view of my past and present, and I found that my past left much to be desired, both in regard to my relations with other humans and in developing personal worth.
+    </li>
     {% for note in user.notes %}
     <li class="list-group-item">
         {{ note.data }}
@@ -9,10 +15,12 @@
         </button>
     </li>
     {% endfor %}
+    <br />
     <button type="button" class="btn btn-primary" onClick="deleteAllNotes()">Delete All</button>
 </ul>
+<br />
 <form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
+    <textarea name="note" id="note" class="form-control" placeholder="Type your interview question here..."></textarea>
     <br />
     <div align="center">
         <button type="submit" class="btn btn-primary">Send</button>
