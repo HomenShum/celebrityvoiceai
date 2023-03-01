@@ -1,20 +1,50 @@
-{% extends "base.html" %}
-
-{% block title %}Persona Selection{% endblock %}
-
-{% block content%}
-  <h1 align="center">Select the persona of your choice for your next conversation</h1>
+{% extends "base.html" %} {% block title %}Persona Selection{% endblock %} {%
+block content%}
+<div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <ul class="list-group">
-      {% for persona in personas %}
-        <li class="list-group-item">
-          <input type="radio" id="{{ persona.name }}" name="selected_persona" value="{{ persona.name }}">
-          <label for="{{ persona.name }}">{{ persona.name }}</label>
-        </li>
-      {% endfor %}
-    </ul>
+    <br />
+    <h1 align="center">Persona Selection</h1>
+    <br />
+    <div class="container">
+      <div class="row">
+        {% for persona in personas %}
+        <div class="col-sm-4" style="margin-bottom: 20px">
+          <div
+            id="{{ persona.name }}"
+            class="persona-box"
+            onclick="selectPersona(this);"
+          >
+            <div>
+              <img
+                class="persona-image"
+                src="{{ persona.image_url }}"
+                alt="{{ persona.name }}"
+              />
+            </div>
+            <div>
+              <br />
+              <h5 class="persona-title">{{ persona.name }}</h5>
+              <h5 class="persona-description">
+                {{ persona.short_description }}
+              </h5>
+              <form
+                id="redirect_url"
+                action="{% if 
+                    persona.name == 'Nelson Mandela' %}/NelsonMandelaChat
+                    {% elif persona.name == 'Beep Boop Robot Tutor' %}/AITutoring
+                    {% else %}/{% endif %}"
+                method="get"
+              >
+                <button type="submit" class="persona-button">
+                  Enter Chat Room
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock %}
   </div>
-  <form action="/home" method="GET">
-    <input type="submit" value="Submit">
-  </form>
-{% endblock %}
+</div>

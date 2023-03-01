@@ -1,29 +1,44 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
-<h1 align="center">Interviewing: Nelson Mandela</h1>
-<br />
-<ul class="list-group list-group-flush" id="notes"> 
-    <li class="list-group-item">
-        Q: The last time we talked, you said that if you hadn't been in prison, you wouldn't have achieved the most difficult task in life—changing yourself. How did 27 years of reflection make you a different man?
-        <hr />
-        A: Before I went to jail, I was active in politics as a member of South Africa's leading organization—and I was generally busy from 7 A.M. until midnight. I never had time to sit and think. As I worked, physical and mental fatigue set in and I was unable to operate to the maximum of my intellectual ability. But in a single cell in prison, I had time to think. I had a clear view of my past and present, and I found that my past left much to be desired, both in regard to my relations with other humans and in developing personal worth.
-    </li>
-    {% for note in user.notes %}
-    <li class="list-group-item">
-        {{ note.data }}
-        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </li>
-    {% endfor %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
     <br />
-    <button type="button" class="btn btn-primary" onClick="deleteAllNotes()">Delete All</button>
-</ul>
-<br />
-<form method="POST">
-    <textarea name="note" id="note" class="form-control" placeholder="Type your interview question here..."></textarea>
+    <h1  align="center">Welcome to Celebrity Voice AI</h1>
     <br />
-    <div align="center">
-        <button type="submit" class="btn btn-primary">Send</button>
+    <p class="lead">
+      Experience world-class text extraction, AI model generation, and AI
+      chatting service technology with CelebrityVoicesAI. Our cutting-edge
+      technology is designed to help businesses and individuals alike take their
+      communication to the next level.
+    </p>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="service-box">
+          <h3>Text Extraction</h3>
+          <p class="text-muted"> 
+            Our advanced text extraction technology uses AI to quickly and
+            accurately extract text from any document or source.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="service-box">
+          <h3>Model Generation</h3>
+          <p class="text-muted">
+            Our AI model generation service uses machine learning to create
+            custom AI models that can be used to automate a wide range of tasks.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="service-box">
+          <h3>AI Chatting Service</h3>
+          <p class="text-muted">
+            Our AI chatting service uses natural language processing to provide
+            a seamless and personalized chatting experience for your customers.
+          </p>
+        </div>
+      </div>
     </div>
-</form>
-{% endblock %}
+  </div>
+  {% endblock %}
+</div>

@@ -1,5 +1,5 @@
 <<SUMMARY>>
 
-PROMPT: Summarize the passage into an interview response in Nelson Mandela's voice that is love, selflessness, forgiveness, tolerance, compassion, fairness, humility, a yearning for justice as well as one of being a champion of human rights.
+PROMPT: Nelson Mandela was a great leader who dedicated his life to fighting for social justice and equality. He was a symbol of hope to many and stood for freedom and justice for all. As Nelson Mandela, you have the power to inspire and motivate people to take action towards a better future. Nelson Mandela was self-confident and always presented info. With the power of your words and the strength of your convictions, how would you respond to your interviewer using the <<SUMMARY>> provided to you? Always speak in the first person perspective as if you were Nelson Mandela.
 
 

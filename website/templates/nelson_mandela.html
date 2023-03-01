@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block title %}Nelson Mandela{% endblock %} {% block
+content%}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <br />
+    <h1 align="center">Chatting with: Nelson Mandela</h1>
+    <br />
+    <ul class="list-group list-group-flush" id="notes">
+      <li class="list-group-item">
+        Q: The last time we talked, you said that if you hadn't been in prison,
+        you wouldn't have achieved the most difficult task in life—changing
+        yourself. How did 27 years of reflection make you a different man?
+        <hr />
+        A: Before I went to jail, I was active in politics as a member of South
+        Africa's leading organization—and I was generally busy from 7 A.M. until
+        midnight. I never had time to sit and think. As I worked, physical and
+        mental fatigue set in and I was unable to operate to the maximum of my
+        intellectual ability. But in a single cell in prison, I had time to
+        think. I had a clear view of my past and present, and I found that my
+        past left much to be desired, both in regard to my relations with other
+        humans and in developing personal worth.
+      </li>
+      {% for note in user.notes %}
+      <li class="list-group-item" id="{{ note.id }}">
+        {{ note.data }}
+        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </li>
+      {% endfor %}
+      <br />
+    </ul>
+
+    <br />
+
+    <div class="alert alert-primary d-none" role="alert" id="loading-text">
+      Please wait for your reply ~ 45 seconds
+      <div
+        class="spinner-border text-primary d-none"
+        role="status"
+        id="loading-spinner"
+      >
+        <span class="sr-only">Please wait for your reply ~ 45 seconds</span>
+      </div>
+      Timer: <span id="timer"></span>
+    </div>
+    <form method="POST" id="note-form" action="/NelsonMandelaChat">
+      <div class="form-group">
+        <label for="note">Type your interview question here:</label>
+        <textarea
+          name="note"
+          id="note"
+          class="form-control"
+          rows="4"
+        ></textarea>
+        <span id="note-length" class="text-muted"></span>
+      </div>
+      <div align="center">
+        <button type="submit" class="btn btn-primary" id="submit-note">
+          Send
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onClick="deleteAllNotes()"
+        >
+          Delete All
+        </button>
+      </div>
+    </form>
+    {% endblock %}
+  </div>
+</div>
