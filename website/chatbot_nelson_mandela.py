@@ -47,7 +47,7 @@ def search_index(text, data, count=5):
     #for all 20 top chunk results, ask the same question, accumulate the answers, summarize into a single best answer
     #then use finetuned model to answer with celebrity persona's voice
 
-def gpt3_curie_completion(prompt, engine='text-curie-001', temp=0.6, top_p=1.0, tokens=888, freq_pen=0.25, pres_pen=0.0, stop=['<<END>>']):
+def gpt3_curie_completion(prompt, engine='text-curie-001', temp=0.1, top_p=1.0, tokens=888, freq_pen=0.25, pres_pen=0.0, stop=['<<END>>']):
     max_retry = 3 # is for the case where the API is down
     retry = 0
     prompt = prompt.encode(encoding='ASCII',errors='ignore').decode()
@@ -76,7 +76,7 @@ def gpt3_curie_completion(prompt, engine='text-curie-001', temp=0.6, top_p=1.0, 
             sleep(1)
 
 
-def gpt3_davinci_completion(prompt, engine='text-davinci-003', temp=0.6, top_p=1.0, tokens=1000, freq_pen=0.25, pres_pen=0.0, stop=['<<END>>']):
+def gpt3_davinci_completion(prompt, engine='text-davinci-003', temp=0.1, top_p=1.0, tokens=1000, freq_pen=0.25, pres_pen=0.0, stop=['<<END>>']):
     max_retry = 3 # is for the case where the API is down
     retry = 0
     prompt = prompt.encode(encoding='ASCII',errors='ignore').decode()
@@ -116,7 +116,7 @@ def respond_user(note):
     #answer the same question for all returned chunks
     for result in results:
         prompt = open_file('website/prompt_answer.txt').replace('<<PASSAGE>>', result['content']).replace('<<QUERY>>', query)
-        answer = gpt3_curie_completion(prompt)
+        answer = gpt3_davinci_completion(prompt)
         print('\n\n', answer)
         answers.append(answer)
     # 4000 tokens limit, we can get up to 16000 characters answer after summarizing top 20 chunk answers
@@ -125,7 +125,7 @@ def respond_user(note):
     chunks = textwrap.wrap(all_answers, 6000)
     final = list()
     for chunk in chunks:
-        prompt = open_file('website/prompt_summary.txt').replace('<<SUMMARY>>', chunk).replace('<<QUERY>>', query)
+        prompt = open_file('website/prompt_summary.txt').replace('<<PASSAGE>>', chunk).replace('<<QUERY>>', query)
         summary = gpt3_davinci_completion(prompt)
         final.append(summary)
     #change list into a string

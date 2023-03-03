@@ -26,55 +26,78 @@ function deleteAllNotes() {
   });
 }
 
-$(document).ready(function () {
-  // Show the character count for the note input field
-  $("#note").on("input", function () {
-    var noteLength = $(this).val().length; // get the length of the note
-    $("#note-length").text(noteLength + " / 200"); // show the length
+document.addEventListener("DOMContentLoaded", function () {
+  const noteInput = document.querySelector("#note");
+  const noteLengthText = document.querySelector("#note-length");
+
+  noteInput.addEventListener("input", function () {
+    const noteLength = this.value.length;
+    noteLengthText.textContent = `${noteLength} / 500`;
   });
+
 });
 
 document.addEventListener("DOMContentLoaded", () => {
   const loadingSpinnerElement = document.getElementById("loading-spinner");
   const notesListElement = document.getElementById("loading-text");
   const messageElement = document.getElementById("note-form");
-
+  const successElement = document.getElementById("success-text");
+  const errorElement = document.getElementById("error-text");
+  
   document.getElementById("note-form").addEventListener("submit", (event) => {
     event.preventDefault();
 
-    loadingSpinnerElement.classList.remove("d-none");
-    notesListElement.classList.remove("d-none");
-    messageElement.classList.add("d-none");
+    const noteLength = document.querySelector("#note").value.length;
 
-    const data = new FormData(event.target);
+    if (noteLength > 500) {
+      errorElement.classList.remove("d-none");
+      successElement.classList.add("d-none");
+      // timecountdown for 2 seconds, then add d-none to errorElement
+      setTimeout(() => {
+        errorElement.classList.add("d-none");
+      }, 2000);
+    } else {
+      // timecountdown for 2 seconds, then add d-none to successElement
+      errorElement.classList.add("d-none");
+      successElement.classList.remove("d-none");
+      setTimeout(() => {
+        successElement.classList.add("d-none");
+      }, 2000);
 
-    fetch("/NelsonMandelaChat", {
-      method: "POST",
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        loadingSpinnerElement.classList.add("d-none");
-        notesListElement.classList.add("d-none");
-        messageElement.classList.remove("d-none");
-        console.log(data);
-      });
-    // reload the page after 30 seconds
-    setTimeout(() => {
-      location.reload();
-    }, 45000);
+      loadingSpinnerElement.classList.remove("d-none");
+      notesListElement.classList.remove("d-none");
+      messageElement.classList.add("d-none");
 
-    // show timer countdown
-    var countDownDate = new Date().getTime() + 45000;
-    var x = setInterval(function () {
-      var now = new Date().getTime();
-      var distance = countDownDate - now;
-      var seconds = Math.floor((distance % (1000 * 45)) / 1000);
-      document.getElementById("timer").innerHTML = seconds + "s ";
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("timer").innerHTML = "EXPIRED";
-      }
-    }, 1000);
+      const data = new FormData(event.target);
+
+      fetch("/NelsonMandelaChat", {
+        method: "POST",
+        body: data,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          loadingSpinnerElement.classList.add("d-none");
+          notesListElement.classList.add("d-none");
+          messageElement.classList.remove("d-none");
+          console.log(data);
+        });
+      // reload the page after 30 seconds
+      setTimeout(() => {
+        location.reload();
+      }, 30000);
+
+      // show timer countdown
+      var countDownDate = new Date().getTime() + 30000;
+      var x = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var seconds = Math.floor((distance % (1000 * 30)) / 1000);
+        document.getElementById("timer").innerHTML = seconds + "s ";
+        if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("timer").innerHTML = "EXPIRED";
+        }
+      }, 1000);
+    }
   });
 });

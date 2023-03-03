@@ -33,14 +33,20 @@ content%}
 
     <br />
 
+    <div class="alert alert-success d-none" role="alert" id="success-text">
+      Your message has been sent!
+    </div>
+    <div class="alert alert-danger d-none" role="alert" id="error-text">
+      Your message has not been sent!
+    </div>
     <div class="alert alert-primary d-none" role="alert" id="loading-text">
-      Please wait for your reply ~ 45 seconds
+      Please wait for your reply ~ 30 seconds
       <div
         class="spinner-border text-primary d-none"
         role="status"
         id="loading-spinner"
       >
-        <span class="sr-only">Please wait for your reply ~ 45 seconds</span>
+        <span class="sr-only">Please wait for your reply ~ 30 seconds</span>
       </div>
       Timer: <span id="timer"></span>
     </div>

@@ -60,7 +60,7 @@ def nelson_mandela():
 
         if note is None or len(note) < 1:
             flash('Message is too short!', category='error')
-        elif len(note) > 200:
+        elif len(note) > 500:
             flash('Message is too long!', category='error')
         else: # submit user's note to the database and display it on the page
             date = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
@@ -86,7 +86,7 @@ def AI_tutor():
 
         if note is None or len(note) < 1:
             flash('Message is too short!', category='error')
-        elif len(note) > 200:
+        elif len(note) > 500:
             flash('Message is too long!', category='error')
         else: # submit user's note to the database and display it on the page
             date = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
@@ -94,7 +94,7 @@ def AI_tutor():
                 data=f"{date} {current_user.first_name}: {note}", user_id=current_user.id)
             db.session.add(new_note)
             db.session.commit()
-            flash('Message sent! Please wait for your reply ~ 45 seconds', category='success')
+            flash('Message sent! Please wait for your reply ~ 30 seconds', category='success')
         # then show response to user in the following:
         # -> extends from chatbot.py file 
             response = respond_user(note)

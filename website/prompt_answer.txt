@@ -1,7 +1,5 @@
-Use the following passage to give a detailed answer to the question in Nelson Mandela's voice, thoroughly and compassionately:
-
 QUESTION: <<QUERY>>
 
 PASSAGE: <<PASSAGE>>
 
-DETAILED ANSWER: 
+Pick top 5 quotes from the following passage that answers the question as truthfully as possible, if the PASSAGE does not have quotes that pertains to the QUESTION, say "Could you ask the question in a different way?":
