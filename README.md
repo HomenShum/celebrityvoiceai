@@ -263,3 +263,141 @@ def select_persona():
   </form>
 {% endblock %}
 ```
+
+3.1.23 Update: Website UI changes + OCR Feature
+TBD
+
+3.2.23 Update: Finetune GPT-3 + Error Fixes
+
+1. Data gathering
+    1. Interview script
+    2. Youtube whisper transcribed script
+    3. Speech
+2. Prepare for fine-tune
+    1. Vector-similarity: Find chunks of document that is similar to the query/user-question 
+    2. Using the relevant chunks, construct them into prompts
+    3. Combine the top relevant prompts/chunks and the query/question
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c6c5afab-c40b-4125-b780-2cc5f566c764/Untitled.png)
+    
+    d. Use davinci-003 and lower temperature to 0 or 0.1 so that the answer is accurately based on the transcript
+    
+3. Increase chunk relevancy and accuracy pertained to the person’s past by referring to quotes
+    
+    ```python
+    QUESTION: <<QUERY>>
+    
+    PASSAGE: <<PASSAGE>>
+    
+    Pick top 5 quotes from the following passage that answers the question as truthfully as possible, if the PASSAGE does not have quotes that pertains to the QUESTION, say "Could you ask the question in a different way?":
+    ```
+    
+4. **Reduce Hallucination** - Prompt Engineering
+    1. If the QUESTION is a simple greeting, simply greet back at the user. Answer the question as truthfully as possible, and if the PASSAGE does not have quotes that pertains to the QUESTION, say "Could you ask the question in a different way?". 
+5. Increase Relevancy - Prompt Engineering
+    1. Respond to the interviewer's question, quote from the PASSAGE. 
+6. Increase Engagement - Prompt Engineering
+    1. If there are no questions, then ask the person a question that aims to inspire and motivate people to take action towards a better future like the leaders today. 
+7. Make the conversation more like a first person interview
+    1. Never say "As Nelson Mandela said", always respond in the first person perspective as Nelson Mandela.
+    
+    # Resulting Layer 2 Prompt Engineer txt file
+    
+    ```python
+    You are Nelson Mandela, who was a great leader who dedicated his life to fighting for social justice and equality. You are a symbol of hope to many and stood for freedom and justice for all. You are self-confident and always presented info. An interviewer is here today to ask you questions about your life and legacy as a leader in the fight for social justice and equality. Respond to the interviewer's questions as Nelson Mandela, draw on your experiences and values to craft a thoughtful and inspiring response that motivates the audience to take action.
+    
+    QUESTION: <<QUERY>>
+    
+    PASSAGE: <<PASSAGE>>
+    
+    Quote from the PASSAGE to respond to the interviewer's question. If the QUESTION is a simple greeting, simply greet back at the user. Answer the question as truthfully as possible, and if the PASSAGE does not have quotes that pertains to the QUESTION, say "Could you ask the question in a different way?". If there are no questions, then ask the person a question that aims to inspire and motivate people to take action towards a better future like the leaders today. Never say "As Nelson Mandela said", always respond in the first person perspective as Nelson Mandela.:
+    ```
+    
+    # Fixed error to improve user experience
+    
+    1. Used davinci model to summarize large text model after finding out that curie saves money but only can answer simplistic tasks
+    2. Rewrite js and html file functions so that message input box can display the 500 character limit. If limit above, then it will not let user submit the note, instead, it shows error message to redirect user to write shorter message. When the message is sent, spinner is added and countdown timer shows how long it will take user to get their answer.
+    3. Deduced loading time from 60 seconds to 30 seconds.
+
+```python
+document.addEventListener("DOMContentLoaded", function () {
+  const noteInput = document.querySelector("#note");
+  const noteLengthText = document.querySelector("#note-length");
+
+  noteInput.addEventListener("input", function () {
+    const noteLength = this.value.length;
+    noteLengthText.textContent = `${noteLength} / 500`;
+  });
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loadingSpinnerElement = document.getElementById("loading-spinner");
+  const notesListElement = document.getElementById("loading-text");
+  const messageElement = document.getElementById("note-form");
+  const successElement = document.getElementById("success-text");
+  const errorElement = document.getElementById("error-text");
+  
+  document.getElementById("note-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const noteLength = document.querySelector("#note").value.length;
+
+    if (noteLength > 500) {
+      errorElement.classList.remove("d-none");
+      successElement.classList.add("d-none");
+      // timecountdown for 2 seconds, then add d-none to errorElement
+      setTimeout(() => {
+        errorElement.classList.add("d-none");
+      }, 2000);
+    } else {
+      // timecountdown for 2 seconds, then add d-none to successElement
+      errorElement.classList.add("d-none");
+      successElement.classList.remove("d-none");
+      setTimeout(() => {
+        successElement.classList.add("d-none");
+      }, 2000);
+
+      loadingSpinnerElement.classList.remove("d-none");
+      notesListElement.classList.remove("d-none");
+      messageElement.classList.add("d-none");
+
+      const data = new FormData(event.target);
+
+      fetch("/NelsonMandelaChat", {
+        method: "POST",
+        body: data,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          loadingSpinnerElement.classList.add("d-none");
+          notesListElement.classList.add("d-none");
+          messageElement.classList.remove("d-none");
+          console.log(data);
+        });
+      // reload the page after 30 seconds
+      setTimeout(() => {
+        location.reload();
+      }, 30000);
+
+      // show timer countdown
+      var countDownDate = new Date().getTime() + 30000;
+      var x = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var seconds = Math.floor((distance % (1000 * 30)) / 1000);
+        document.getElementById("timer").innerHTML = seconds + "s ";
+        if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("timer").innerHTML = "EXPIRED";
+        }
+      }, 1000);
+    }
+  });
+});
+```
+
+# Future Improvements:
+
+1. Use sentiment analysis to figure out whether the user’s question belongs to a long answer category where it would require searching through a large document selection to find the right answer. “hi” for example only needs a greet back instead of a full on answer. (improves the conversation to sound more natural)
+2. Fine tune the model to respond to some specific questions a specific way, such as interview questions should be responded the same way as if they were from back in the days. (improves realism of the conversation)
